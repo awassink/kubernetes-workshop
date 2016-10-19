@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: cddb-frontend
+    visualize: "true"
+    uses: "cddb-backend"
+  name: cddb-frontend
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        run: cddb-frontend
+        visualize: "true"
+        uses: "cddb-backend"
+    spec:
+      containers:
+      - image: buildserver:5000/rpi-cddb-frontend:v6
+        imagePullPolicy: IfNotPresent
+        name: cddb-frontend
+        ports:
+        - containerPort: 80
+          protocol: TCP        
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30

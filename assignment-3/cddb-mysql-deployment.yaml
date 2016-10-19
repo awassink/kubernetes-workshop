@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: cddb-mysql
+    visualize: "true"
+  name: cddb-mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: cddb-mysql
+      visualize: "true"
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: cddb-mysql
+        visualize: "true"
+    spec:
+      containers:
+      - env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: root
+        - name: MYSQL_DATABASE
+          value: cddb_quintor
+        - name: MYSQL_USER
+          value: cddb_quintor
+        - name: MYSQL_PASSWORD
+          value: quintor_pw
+        image: hypriot/rpi-mysql:latest
+        imagePullPolicy: IfNotPresent
+        name: cddb-mysql
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: "/var/lib/mysql"
+      dnsPolicy: ClusterFirst
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim

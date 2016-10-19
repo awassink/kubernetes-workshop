@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: cddb-backend
+    visualize: "true"
+    uses: "cddb-mysql"
+  name: cddb-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: cddb-backend
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: cddb-backend
+        visualize: "true"
+        uses: "cddb-mysql"
+    spec:
+      containers:
+      - image: buildserver:5000/rpi-cddb-backend:v2
+        imagePullPolicy: Always
+        name: cddb-backend
+        ports:
+        - containerPort: 8080
+          protocol: TCP        
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
