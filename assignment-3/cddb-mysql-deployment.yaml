@@ -26,10 +26,6 @@ spec:
           value: root
         - name: MYSQL_DATABASE
           value: cddb_quintor
-        - name: MYSQL_USER
-          value: cddb_quintor
-        - name: MYSQL_PASSWORD
-          value: quintor_pw
         image: hypriot/rpi-mysql:latest
         imagePullPolicy: IfNotPresent
         name: cddb-mysql
