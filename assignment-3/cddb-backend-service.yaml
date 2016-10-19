@@ -5,7 +5,6 @@ metadata:
     run: cddb-backend
     visualize: "true"
   name: cddb-backend
-  namespace: default
 spec:
   externalIPs:
   - <your node ip>

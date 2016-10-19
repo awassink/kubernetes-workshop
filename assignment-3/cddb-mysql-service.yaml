@@ -5,7 +5,6 @@ metadata:
     run: cddb-mysql
     visualize: "true"
   name: cddb-mysql
-  namespace: default
 spec:
   externalIPs:
   - <your node ip>
