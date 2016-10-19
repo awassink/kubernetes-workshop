@@ -4,7 +4,6 @@ metadata:
   labels:
     visualize: "true"
   name: nginx
-  namespace: default
 spec:
   replicas: 4
   selector:
