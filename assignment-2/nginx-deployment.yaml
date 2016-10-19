@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   labels:
     visualize: "true"
-    run: nginx
+    name: nginx
 spec:
   replicas: 4
   selector:
