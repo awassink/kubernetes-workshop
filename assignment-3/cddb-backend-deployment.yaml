@@ -21,8 +21,6 @@ spec:
       creationTimestamp: null
       labels:
         run: cddb-backend
-        visualize: "true"
-        uses: "cddb-mysql"
     spec:
       containers:
       - image: awassink/cddb-backend:v1

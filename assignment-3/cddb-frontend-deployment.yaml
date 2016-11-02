@@ -17,8 +17,6 @@ spec:
     metadata:
       labels:
         run: cddb-frontend
-        visualize: "true"
-        uses: "cddb-backend"
     spec:
       containers:
       - image: awassink/cddb-frontend:v1
