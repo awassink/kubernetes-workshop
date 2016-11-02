@@ -6,8 +6,6 @@ metadata:
     visualize: "true"
   name: cddb-backend
 spec:
-  externalIPs:
-  - <your node ip>
   ports:
   - port: 8081
     protocol: TCP
@@ -16,5 +14,3 @@ spec:
     run: cddb-backend
   sessionAffinity: None
   type: ClusterIP
-status:
-  loadBalancer: {}
