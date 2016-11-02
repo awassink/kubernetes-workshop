@@ -10,3 +10,4 @@ spec:
   gcePersistentDisk:
     pdName: gce-vol-x
     fsType: ext4
+  persistentVolumeReclaimPolicy: Recycle
