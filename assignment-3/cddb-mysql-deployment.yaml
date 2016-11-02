@@ -11,7 +11,8 @@ spec:
   template:
     metadata:
       labels:
-        app: cddb-mysql
+        run: cddb-mysql
+        visualize: "true"
     spec:
       containers:
       - image: mysql:5.6
