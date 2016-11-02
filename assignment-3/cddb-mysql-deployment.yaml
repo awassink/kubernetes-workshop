@@ -12,7 +12,10 @@ spec:
       run: cddb-mysql
       visualize: "true"
   strategy:
-    type: Recreate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
       creationTimestamp: null
@@ -40,6 +43,8 @@ spec:
         - name: mysql-persistent-storage
           mountPath: "/var/lib/mysql"
       dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
