@@ -12,7 +12,6 @@ spec:
     metadata:
       labels:
         app: cddb-mysql
-        visualize: "true"
     spec:
       containers:
       - image: mysql:5.6
