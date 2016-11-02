@@ -3,7 +3,8 @@ kind: Deployment
 metadata:
   name: cddb-mysql
   labels:
-    app: cddb-mysql
+    run: cddb-mysql
+    visualize: "true"
 spec:
   strategy:
     type: Recreate
