@@ -3,16 +3,14 @@ kind: Deployment
 metadata:
   name: cddb-mysql
   labels:
-    run: cddb-mysql
-    visualize: "true"
+    app: cddb-mysql
 spec:
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        run: cddb-mysql
-        visualize: "true"
+        app: cddb-mysql
     spec:
       containers:
       - image: mysql:5.6
