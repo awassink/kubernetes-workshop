@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: cddb-mysql
   labels:
-    run: cddb-mysql
+    app: cddb-mysql
     visualize: "true"
 spec:
   strategy:
@@ -11,7 +11,7 @@ spec:
   template:
     metadata:
       labels:
-        run: cddb-mysql
+        app: cddb-mysql
         visualize: "true"
     spec:
       containers:
