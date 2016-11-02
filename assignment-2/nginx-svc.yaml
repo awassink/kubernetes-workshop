@@ -6,8 +6,6 @@ metadata:
     visualize: "true"
   name: nginx
 spec:
-  externalIPs:
-  - <your node ip>
   ports:
   - port: 90
     protocol: TCP
@@ -15,4 +13,4 @@ spec:
   selector:
     run: nginx
   sessionAffinity: None
-  type: ClusterIP
+  type: LoadBalancer
