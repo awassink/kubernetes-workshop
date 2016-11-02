@@ -1,45 +1,32 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
+  name: cddb-mysql
   labels:
     run: cddb-mysql
     visualize: "true"
-  name: cddb-mysql
 spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      run: cddb-mysql
-      visualize: "true"
   strategy:
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-    type: RollingUpdate
+    type: Recreate
   template:
     metadata:
-      creationTimestamp: null
       labels:
         run: cddb-mysql
         visualize: "true"
     spec:
       containers:
-      - env:
+      - image: mysql:5.6
+        name: cddb-mysql
+        env:
         - name: MYSQL_ROOT_PASSWORD
           value: root
-        image: mysql:5.6
-        imagePullPolicy: Always
-        name: cddb-mysql
         ports:
         - containerPort: 3306
-          protocol: TCP
+          name: mysql
         volumeMounts:
         - name: mysql-persistent-storage
-          mountPath: "/var/lib/mysql"
-      dnsPolicy: ClusterFirst
-      restartPolicy: Always
-      terminationGracePeriodSeconds: 30
+          mountPath: /var/lib/mysql
       volumes:
-        - name: mysql-persistent-storage
-          persistentVolumeClaim:
-            claimName: mysql-pv-claim
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-pv-claim
