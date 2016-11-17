@@ -33,7 +33,7 @@ spec:
             secretKeyRef:
               name: mysql-login
               key: user
-        - name: MYSQL_ROOT_PASSWORD
+        - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
               name: mysql-login
