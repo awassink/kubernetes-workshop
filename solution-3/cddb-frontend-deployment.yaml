@@ -7,8 +7,12 @@ metadata:
     uses: "cddb-backend"
   name: cddb-frontend
 spec:
-  replicas: 2
-  strategy: # define a rolling update strategy for the frontend containers
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
       labels:

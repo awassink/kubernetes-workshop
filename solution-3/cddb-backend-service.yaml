@@ -11,7 +11,7 @@ spec:
   ports:
   - port: 8080
     protocol: TCP
-    targetPort: # what is the target port?
+    targetPort: 8080
   selector:
     run: cddb-backend
   sessionAffinity: None
