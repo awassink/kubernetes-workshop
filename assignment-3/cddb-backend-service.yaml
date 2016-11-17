@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: cddb-backend
+    visualize: "true"
+  name: cddb-backend
+spec:
+  externalIPs:
+  - <your node ip>
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: # what is the target port?
+  selector:
+    run: cddb-backend
+  sessionAffinity: None
+  type: ClusterIP

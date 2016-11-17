@@ -1,0 +1,51 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    run: cddb-mysql
+    visualize: "true"
+  name: cddb-mysql
+spec:
+  replicas: # Fill in a logical value
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        run: cddb-mysql
+        visualize: "true"
+    spec:
+      containers:
+      - image: hypriot/rpi-mysql:latest
+        imagePullPolicy: # Look up what values this can take in the kubernetes docs
+        name: cddb-mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD     # Create kubernetes secrets for these.
+          valueFrom:                    # A secret named mysql-root-password
+            secretKeyRef:               # that contains a field password
+              name: mysql-root-password # http://kubernetes.io/docs/user-guide/secrets/#creating-a-secret-using-kubectl-create-secret
+              key: password
+        - name: MYSQL_DATABASE
+          value: cddb_quintor
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-login
+              key: user
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-login
+              key: password
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: "/var/lib/mysql"
+      dnsPolicy: ClusterFirst
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
