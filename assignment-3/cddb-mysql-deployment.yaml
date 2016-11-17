@@ -17,7 +17,10 @@ spec:
         visualize: "true"
     spec:
       containers:
-      - env:
+      - image: hypriot/rpi-mysql:latest
+        imagePullPolicy: IfNotPresent
+        name: cddb-mysql
+        env:
         - name: MYSQL_ROOT_PASSWORD
           value: root_pw
         - name: MYSQL_DATABASE
@@ -26,9 +29,6 @@ spec:
           value: cddb_quintor
         - name: MYSQL_PASSWORD
           value: quintor_pw
-        image: hypriot/rpi-mysql:latest
-        imagePullPolicy: IfNotPresent
-        name: cddb-mysql
         ports:
         - containerPort: 3306
           protocol: TCP
