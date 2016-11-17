@@ -8,9 +8,6 @@ metadata:
   name: cddb-backend
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      run: cddb-backend
   strategy:
     rollingUpdate:
       maxSurge: 1
