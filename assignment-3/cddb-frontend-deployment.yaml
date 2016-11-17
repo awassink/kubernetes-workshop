@@ -21,7 +21,7 @@ spec:
         uses: "cddb-backend"
     spec:
       containers:
-      - image: buildserver:5000/rpi-cddb-frontend:v7
+      - image: buildserver:5000/rpi-cddb-frontend:v9
         imagePullPolicy: IfNotPresent
         name: cddb-frontend
         ports:
