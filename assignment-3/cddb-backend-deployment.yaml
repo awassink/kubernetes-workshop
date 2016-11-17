@@ -25,7 +25,7 @@ spec:
         uses: "cddb-mysql"
     spec:
       containers:
-      - image: buildserver:5000/rpi-cddb-backend:v4
+      - image: buildserver:5000/rpi-cddb-backend:v5
         imagePullPolicy: IfNotPresent
         name: cddb-backend
         ports:
