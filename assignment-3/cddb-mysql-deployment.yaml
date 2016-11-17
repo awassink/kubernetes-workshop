@@ -22,13 +22,22 @@ spec:
         name: cddb-mysql
         env:
         - name: MYSQL_ROOT_PASSWORD
-          value: root_pw
+          valueFrom:
+            secretKeyRef:
+              name: mysql-root-password
+              key: password
         - name: MYSQL_DATABASE
           value: cddb_quintor
         - name: MYSQL_USER
-          value: cddb_quintor
-        - name: MYSQL_PASSWORD
-          value: quintor_pw
+          valueFrom:
+            secretKeyRef:
+              name: mysql-login
+              key: user
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-login
+              key: password
         ports:
         - containerPort: 3306
           protocol: TCP
