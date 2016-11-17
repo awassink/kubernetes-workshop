@@ -7,10 +7,6 @@ metadata:
   name: cddb-mysql
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      run: cddb-mysql
-      visualize: "true"
   strategy:
     type: Recreate
   template:
