@@ -16,5 +16,3 @@ spec:
     run: cddb-frontend
   sessionAffinity: None
   type: ClusterIP
-status:
-  loadBalancer: {}

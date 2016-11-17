@@ -9,12 +9,10 @@ spec:
   externalIPs:
   - <your node ip>
   ports:
-  - port: 8081
+  - port: 8080
     protocol: TCP
     targetPort: 8080
   selector:
     run: cddb-backend
   sessionAffinity: None
   type: ClusterIP
-status:
-  loadBalancer: {}
