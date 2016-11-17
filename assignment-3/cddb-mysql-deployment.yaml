@@ -19,7 +19,7 @@ spec:
       containers:
       - env:
         - name: MYSQL_ROOT_PASSWORD
-          value: root
+          value: root_pw
         - name: MYSQL_DATABASE
           value: cddb_quintor
         - name: MYSQL_USER
