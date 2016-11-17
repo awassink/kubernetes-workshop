@@ -2,26 +2,31 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
-    run: cddb-frontend
+    run: cddb-backend
     visualize: "true"
-    uses: "cddb-backend"
-  name: cddb-frontend
+    uses: "cddb-mysql"
+  name: cddb-backend
 spec:
-  replicas: 2
-  strategy: # define a rolling update strategy for the frontend containers
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
   template:
     metadata:
+      creationTimestamp: null
       labels:
-        run: cddb-frontend
+        run: cddb-backend
         visualize: "true"
-        uses: "cddb-backend"
+        uses: "cddb-mysql"
     spec:
       containers:
-      - image: buildserver:5000/rpi-cddb-frontend:v9
+      - image: buildserver:5000/rpi-cddb-backend:v7
         imagePullPolicy: IfNotPresent
-        name: cddb-frontend
+        name: cddb-backend
         ports:
-        - containerPort: 80
+        - containerPort: 8080
           protocol: TCP        
       dnsPolicy: ClusterFirst
       restartPolicy: Always

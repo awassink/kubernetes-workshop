@@ -6,7 +6,7 @@ metadata:
     visualize: "true"
   name: cddb-mysql
 spec:
-  replicas: # Fill in a logical value
+  replicas: 1
   strategy:
     type: Recreate
   template:
@@ -18,13 +18,13 @@ spec:
     spec:
       containers:
       - image: hypriot/rpi-mysql:latest
-        imagePullPolicy: # Look up what values this can take in the kubernetes docs
+        imagePullPolicy: IfNotPresent
         name: cddb-mysql
         env:
-        - name: MYSQL_ROOT_PASSWORD     # Create kubernetes secrets for these.
-          valueFrom:                    # A secret named mysql-root-password
-            secretKeyRef:               # that contains a field password
-              name: mysql-root-password # http://kubernetes.io/docs/user-guide/secrets/#creating-a-secret-using-kubectl-create-secret
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-root-password
               key: password
         - name: MYSQL_DATABASE
           value: cddb_quintor
