@@ -8,7 +8,8 @@ metadata:
   name: cddb-frontend
 spec:
   replicas: 2
-  strategy: # define a rolling update strategy for the frontend containers
+  strategy:
+    type: # define a rolling update strategy for the frontend containers
   template:
     metadata:
       labels:

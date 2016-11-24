@@ -15,4 +15,4 @@ spec:
   selector:
     run: cddb-mysql
   sessionAffinity: None
-  type: # Look this up, it's critically important and really powerful, especially in cloud-hosted clusters.
+  type: ClusterIP # Look this up, it's critically important and really powerful, especially in cloud-hosted clusters.
