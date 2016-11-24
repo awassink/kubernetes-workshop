@@ -8,8 +8,11 @@ metadata:
 spec:
   externalIPs:
   - <your node ip>
-  ports: # Look this up in the Kubernetes docs (Kubernetes services - port mapping)
+  ports:
+  - port: 3306
+    protocol: TCP
+    targetPort: 3306
   selector:
     run: cddb-mysql
   sessionAffinity: None
-  type: # Look this up too, it's critically important and really powerful.
+  type: # Look this up, it's critically important and really powerful, especially in cloud-hosted clusters.
