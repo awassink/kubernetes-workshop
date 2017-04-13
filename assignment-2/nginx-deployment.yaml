@@ -22,7 +22,7 @@ spec:
         visualize: "true"
     spec:
       containers:
-      - image: buildserver:5000/rpi-nginx-withcontent:3
+      - image: awassink/nginx-withcontent:3
         imagePullPolicy: IfNotPresent
         name: nginx
         ports:

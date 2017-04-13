@@ -7,6 +7,10 @@ metadata:
   name: cddb-mysql
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      run: cddb-mysql
+      visualize: "true"
   strategy:
     type: Recreate
   template:
@@ -17,10 +21,7 @@ spec:
         visualize: "true"
     spec:
       containers:
-      - image: hypriot/rpi-mysql:latest
-        imagePullPolicy: IfNotPresent
-        name: cddb-mysql
-        env:
+      - env:
         - name: MYSQL_ROOT_PASSWORD     # Create kubernetes secrets for these.
           valueFrom:                    # A secret named mysql-root-password
             secretKeyRef:               # that contains a field password
@@ -38,14 +39,17 @@ spec:
             secretKeyRef:
               name: mysql-login
               key: password
+        image: mysql:5.6
+        imagePullPolicy: IfNotPresent
+        name: cddb-mysql
         ports:
         - containerPort: 3306
           protocol: TCP
         volumeMounts:
         - name: mysql-persistent-storage
-          mountPath: "/var/lib/mysql"
+          mountPath: /var/lib/mysql
       dnsPolicy: ClusterFirst
       volumes:
         - name: mysql-persistent-storage
           persistentVolumeClaim:
-            claimName: mysql-pv-claim
+            claimName: cddb-mysql-pv-claim

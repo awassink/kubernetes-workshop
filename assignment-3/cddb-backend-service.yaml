@@ -6,12 +6,9 @@ metadata:
     visualize: "true"
   name: cddb-backend
 spec:
-  externalIPs:
-  - <your node ip>
   ports:
   - port: 8080
     protocol: TCP
-    targetPort: 8080
   selector:
     run: cddb-backend
   sessionAffinity: None

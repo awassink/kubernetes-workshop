@@ -6,13 +6,10 @@ metadata:
     visualize: "true"
   name: cddb-mysql
 spec:
-  externalIPs:
-  - <your node ip>
   ports:
   - port: 3306
     protocol: TCP
-    targetPort: 3306
   selector:
     run: cddb-mysql
   sessionAffinity: None
-  type: ClusterIP # Look this up, it's critically important and really powerful, especially in cloud-hosted clusters.
+  type: ClusterIP

@@ -1,12 +1,13 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs-share-x
+  name: ${NAME}
 spec:
   capacity:
     storage: 1Gi
   accessModes:
-    - ReadWriteOnce
+    -  ReadWriteOnce
   nfs:
-    server: buildserver
-    path: "/home/quintor/nfs-share/rpi-node-x"
+    path: /home/kubedrive/${NAME}
+    server: 10.8.60.182
+  persistentVolumeReclaimPolicy: Retain

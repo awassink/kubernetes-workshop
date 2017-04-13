@@ -8,6 +8,9 @@ metadata:
   name: cddb-backend
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      run: cddb-backend
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -22,7 +25,7 @@ spec:
         uses: "cddb-mysql"
     spec:
       containers:
-      - image: buildserver:5000/rpi-cddb-backend:v7
+      - image: awassink/cddb-backend:cloud-v1.1
         imagePullPolicy: IfNotPresent
         name: cddb-backend
         ports:

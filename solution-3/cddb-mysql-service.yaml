@@ -6,12 +6,9 @@ metadata:
     visualize: "true"
   name: cddb-mysql
 spec:
-  externalIPs:
-  - <your node ip>
   ports:
   - port: 3306
     protocol: TCP
-    targetPort: 3306
   selector:
     run: cddb-mysql
   sessionAffinity: None
