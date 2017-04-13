@@ -1,7 +1,15 @@
 # kubernetes-workshop
 
 ## Setup
-Once all the services on the worker node are up and running we can check that the node is added to the cluster on the master node. That can be done with kubectl, a tool for managing kubernetes. Kubectl for ARM can be downloaded from googleapis storage.  The default cluster server (master node) is configured, so that we don't have to specify it every time we run a command with kubectl. You can specify multiple clusters and use contexts to switch between them.
+An easy and default way to work with Kubernetes clusters is through the `kubectl` cli-tool. Kubectl for different platforms can be downloaded from googleapis storage. Install `kubectl` using the instructions at <https://kubernetes.io/docs/tasks/kubectl/install/>.
+ 
+Copy the provided kubeconfig file to `~/.kube/config` and make shure kubectl access the kubernetes cluster. See <https://kubernetes.io/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/> for more details.
+
+```bash
+$ kubectl cluster-info
+```
+
+The default cluster is now configured, so that we don't have to specify it every time we run a command with kubectl. You can specify multiple clusters and use contexts to switch between them.
 
 ```bash
 $ kubectl config view
@@ -26,9 +34,19 @@ NAME            STATUS    AGE
 10.150.42.100   Ready     2h
 10.150.42.101   Ready     2h
 ```
- 
+
+## Visualizer for the exersises
+To see what is happening in Kubernetes we will use a custom Visualizer. Therefor clone or download the visualizer from github: <https://github.com/awassink/gcp-live-k8s-visualizer>
+
+Start a `kubectl proxy` to the cluster and serve the visualizer via this proxy. 
+```bash
+$ kubectl proxy --www=/<your-path-to>/gcp-live-k8s-visualizer
+```
+Check that the visualizer web application is available at: <http://localhost:8001/static/>
+Also the Kubernetes dashboard must be available at: <http://localhost:8001/ui>
+
 ## Running a container on kubernetes
-An easy way to test the cluster is by running a simple docker image for ARM like the rpi-nginx one. kubectl run can be used to run the image as a container in a pod. kubectl get pods shows the pods that are registered along with its status. kubectl describe gives more detailed information on a specific resource. Each pod (container) get a unique ip-address assigned wihtin the cluster and is accessible on that througout the cluster, thanks to flannel overlay network. A pod can be deleted using kubectl delete pod/deployment/service <name>. Note that the run command creates a deployment (http://kubernetes.io/docs/user-guide/deployments/) which will ensure a crashed or deleted pod is restored. To remove your deployment, use kubectl delete deployment nginx. (kubectl help is your friend!) The --port flag exposes the pods to the internal network. The --labels flag ensures your pods are visible. Please use both flags. 
+An easy way to test the cluster is by running a simple docker image like the `nginx` one. `kubectl run` can be used to run the image as a container in a pod. `kubectl get pods` shows the pods that are registered along with its status. `kubectl describe` gives more detailed information on a specific resource. Each pod (container) gets a unique ip-address assigned wihtin the cluster and is accessible on that througout the cluster, thanks to flannel overlay network. A pod can be deleted using `kubectl delete pod <name>`. Note that the run command creates a deployment (http://kubernetes.io/docs/user-guide/deployments/) which will ensure a crashed or deleted pod is restored. To remove your deployment, use `kubectl delete deployment <name>`. (`kubectl help` is your friend!) The `--port` flag exposes the pods to the internal network. The `--labels` flag ensures your pods are visible in the Visualizer. Please use both flags. 
 Note that your nginx pod may seem to be stuck at "ContainerCreating" because it has to download the image first.
 
 ```bash
@@ -70,7 +88,7 @@ $ curl http://10.1.87.2/
 </body>
 </html>
 ```
-##Exposing containers on kubernetes
+## Exposing containers on kubernetes
 Now the pod is running, but the application is not generally accessible. That can be achieved by creating a service in kubernetes. The service will have a cluster IP-address assigned, which is the IP-address the service is avalailable at within the cluster (10.0.0.*). Use the IP-address of your a worker node as external IP and the service becomes available outside of the cluster (e.g.10.150.42.103 in my case). Check in your browser that http://<ip-address-of-your-node>:90/ is available.
 ```bash
 $ kubectl expose deployment nginx --port=90 --target-port=80 --external-ip=<my node's ip>
@@ -92,7 +110,7 @@ $ curl http://10.0.0.102:90
 </html>
 ```
  
-##Scaling
+## Scaling
 The number of pod serving a service can easily be scaled via kubectl. Use kubectl scale to do so. Check out the visualizer the moment when you execute the scale command.
 ```bash
 $ kubectl scale --replicas=3 deployment nginx
@@ -104,7 +122,7 @@ nginx-1665122148-4amzl    1/1       Running             0          13m       10.
 nginx-1665122148-peep7    0/1       ContainerCreating   0          1m        <none>       10.150.42.176
 nginx-1665122148-shm28    0/1       ContainerCreating   0          1m        <none>       10.150.42.183
 ```
-##Doing a rolling update with Kubernetes (no service downtime)
+## Doing a rolling update with Kubernetes (no service downtime)
 In order to demonstrate a rolling update, we will use some prepared nginx containers which serve different static html depending on the version.  Please remove your current deployment and deploy version 1 of this image, with 4 replicas, exposing port 80 on the pods (tip: if you don't remove the service exposing your raspi's port 90 to the world you can reuse it for this deployment).
 ```bash
 $ kubectl delete deployment nginx
@@ -161,7 +179,7 @@ Now edit the deployment yaml file to use a different image version (4->3)
 $ kubectl replace -f nginx-deployment.yaml
 ```  
 
-##Deploying a three tier application
+## Deploying a three tier application
 Creating and claiming persisted volumes
 The buildserver also hosts NFS service providing multiple volumes for mounting. In Kubernetes you can make a volume available for usage by creating a Persisted Volume.
 Edit the nfs-pv.yaml file so that the nfs share path matches your node. Also change the PV name to a unique value.
