@@ -2,7 +2,9 @@
 
 ## Setup
 An easy and default way to work with Kubernetes clusters is through the `kubectl` cli-tool. Kubectl for different platforms can be downloaded from googleapis storage. Install `kubectl` using the instructions at <https://kubernetes.io/docs/tasks/kubectl/install/>.
- 
+
+<https://storage.googleapis.com/kubernetes-release/release/v1.5.3/bin/windows/amd64/kubectl.exe>
+
 Copy the provided kubeconfig file to `~/.kube/config` and make shure kubectl access the kubernetes cluster. See <https://kubernetes.io/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/> for more details.
 
 On Windows set the KUBECONFIG envinment variable to point to the kubeconfig file
@@ -84,17 +86,7 @@ NAME      DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx     1         1         1            1           4m
 ```
 Now the container is running with kubernetes, the NGINX application is directly accessible via its IP address within the kubernetes cluster. Note that this is an IP address within the flannel overlaying network and is not accessible from outside the cluster. Also note that we do not have to specify any port mappings from the container to the host. 
-```bash
-$ curl http://10.1.87.2/
-<html>
-<head>
-<title>Welcome to nginx!</title>
-</head>
-<body bgcolor="white" text="black">
-<center><h1>Welcome to nginx!</h1></center>
-</body>
-</html>
-```
+
 ## Exposing containers on kubernetes
 Now the pod is running, but the application is not generally accessible. That can be achieved by creating a service in kubernetes. The service will have a cluster IP-address assigned, which is the IP-address the service is avalailable at within the cluster (10.0.0.*). Use the IP-address of your a worker node as external IP and the service becomes available outside of the cluster (e.g.10.150.42.103 in my case). Check in your browser that http://<ip-address-of-your-node>:90/ is available.
 ```bash
