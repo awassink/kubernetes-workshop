@@ -34,6 +34,7 @@ NAME            STATUS    AGE
 10.150.42.100   Ready     2h
 10.150.42.101   Ready     2h
 ```
+Check the `kubectl` cheatsheet along the exersises for help <https://kubernetes.io/docs/user-guide/kubectl-cheatsheet/>
 
 ## Visualizer for the exersises
 To see what is happening in Kubernetes we will use a custom Visualizer. Therefor clone or download the visualizer from github: <https://github.com/awassink/gcp-live-k8s-visualizer>
