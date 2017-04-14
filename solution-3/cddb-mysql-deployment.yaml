@@ -32,12 +32,12 @@ spec:
         - name: MYSQL_USER
           valueFrom:
             secretKeyRef:
-              name: mysql-login
+              name: mysql-user
               key: user
         - name: MYSQL_PASSWORD
           valueFrom:
             secretKeyRef:
-              name: mysql-login
+              name: mysql-password
               key: password
         image: mysql:5.6
         imagePullPolicy: IfNotPresent
