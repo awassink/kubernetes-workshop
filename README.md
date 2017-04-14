@@ -207,10 +207,12 @@ Some of the deployment and service yaml files in the "assignment-3" folder are i
 
 For the MySQL service, set an appropriate service type. Take some time to look at http://kubernetes.io/docs/user-guide/services/#publishing-services---service-types because services and their types are some of the most powerful and most important Kubernetes features.
 
-For the MySQL deployment, create Kubernetes secrets. Take a look at http://kubernetes.io/docs/user-guide/secrets/#creating-a-secret-using-kubectl-create-secret for more info. The MySQL root password is "root_pw", the MySQL user is called "cddb_quintor" and the MySQL password is "quintor_pw". You can create secrets from the command line using:
-kubectl create secret generic --from-literal=<field name>=<field value> <secret name>
+For the MySQL deployment, create Kubernetes secrets. Take a look at http://kubernetes.io/docs/user-guide/secrets/#creating-a-secret-using-kubectl-create-secret for more info. The MySQL root `password` is `root_pw`, the MySQL `user` is called `cddb_quintor` and the MySQL `password` is `quintor_pw`. You can create secrets from the command line using:
+`kubectl create secret generic --from-literal=<field name>=<field value> <secret name>`
+
 so for example
-kubectl create secret generic --from-literal=password=root_pw mysql-root-password
+
+`kubectl create secret generic --from-literal=password=root_pw mysql-root-password`
 
 Choose a rollout strategy for the frontend deployment containers. Take a look at http://kubernetes.io/docs/user-guide/deployments/#strategy. It is not necessary to set the maxUnavailable and maxSurge fields but you can of course experiment with these values if you like.
 For all three services (frontend, backend and MySQL), edit the *-service.yaml files and set the IP of your own node before creating them.
