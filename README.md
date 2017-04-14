@@ -5,6 +5,12 @@ An easy and default way to work with Kubernetes clusters is through the `kubectl
  
 Copy the provided kubeconfig file to `~/.kube/config` and make shure kubectl access the kubernetes cluster. See <https://kubernetes.io/docs/concepts/cluster-administration/authenticate-across-clusters-kubeconfig/> for more details.
 
+On Windows set the KUBECONFIG envinment variable to point to the kubeconfig file
+
+```bash
+$ set KUBECONFIG=C:\Users\<user>\kube_config
+```
+
 ```bash
 $ kubectl cluster-info
 ```
