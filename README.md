@@ -234,7 +234,7 @@ service "cddb-backend" created
 $ kubectl create -f cddb-frontend-deployment.yaml
 deployment "cddb-frontend" created
   
-$ kubectl create -f cddb-backend-frontend.yaml
+$ kubectl create -f cddb-frontend-service.yaml
 service "cddb-frontend" created
 ```
 Test that the application is working using a browser and that it stores the data in the database. 
